@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML 5 – Formulario Login</title>
+    <script>src="./javascript/funciones.js" </script>
+</head>
+<body class="container">
+    <h2>Login</h2>
+    <form>
+        <table align="center">
+            <tr>
+                <td colspan="2"><h4>Ingreso de credenciales</h4></td>
+            </tr>
+            <tr>
+                <td colspan="2"><hr/></td>
+            </tr>
+            <tr>                  
+                <td>DNI:</td>					
+                <td  style="text-align:left;padding-left:15px">                        
+                    <input title="DNI" type="number" name="txtDni" id="txtDni" size="10" min="1000000" max="55000000" step="1" >
+                    <span style="display:none;color: orange;" name="spnDni" id="spnDni">*</span><br> 
+                </td>
+            </tr>
+            <tr>
+                <td>Apellido:</td>					
+                <td  style="text-align:left;padding-left:15px">
+                    <input title="Apellido" type="text" name="txtApellido" id="txtApellido" ><br>
+                    <span style="display:none;color: orange;" name="spnApellido" id="spnApellido">*</span><br>                   
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="right">
+                    <input type="submit" onclick="AdministrarValidacionesLogin()" id="btnEnviar" value="Enviar" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
