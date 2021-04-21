@@ -18,20 +18,22 @@
 				<tr>                  
                     <td>DNI</td>					
 					<td  style="text-align:left;padding-left:15px">                        
-                        <input title="DNI" type="number" name="txtDni" id="txtDni" size="10" min="1000000" max="55000000" step="1" required> <br> 
+                        <input title="DNI" type="number" name="txtDni" id="txtDni" size="10" min="1000000" max="55000000" required> 
+						<span style="display:none;color: orange;" name="spnDni" id="spnDni">*</span>
 					</td>
 				</tr>
 				<tr>
                     <td>Apellido:</td>					
 					<td  style="text-align:left;padding-left:15px">
-                        <input title="Apellido" type="text" name="txtApellido" id="txtApellido" required><br>
-                                    
+                        <input title="Apellido" type="text" name="txtApellido" id="txtApellido" required>
+                   		<span style="display:none;color: orange;" name="spnApellido" id="spnApellido">*</span>             
 					</td>
 				</tr>
 				<tr>
 					<td>Nombre:</td>					
 					<td  style="text-align:left;padding-left:15px">
-                        <input title="Nombre" type="text" name="txtNombre" id="txtNombre" required> <br>					
+                        <input title="Nombre" type="text" name="txtNombre" id="txtNombre" required>
+						<span style="display:none;color: orange;" name="spnNombre" id="spnNombre">*</span>
 					</td>
 				</tr>
 				<tr>
@@ -42,6 +44,7 @@
 							<option value="F">Femenino</option>
 							<option value="M" >Masculino</option>
 						</select>					
+						<span style="display:none;color: orange;" name="spnSexo" id="spnSexo">*</span><br> 
 					</td>
 				</tr>
                 <tr>
@@ -53,13 +56,16 @@
 				<tr>
                     <td>Legajo:</td>					
 					<td  style="text-align:left;padding-left:15px">
-                        <input title="Legajo" type="number" name="txtLegajo" id="txtLegajo" size="6" min="100" max="550" required> <br>                                     
+                        <input title="Legajo" type="number" name="txtLegajo" id="txtLegajo" size="6" min="100" max="550" required>                                      
+						<span style="display:none;color: orange;" name="spnLegajo" id="spnLegajo">*</span>
+						
 					</td>
 				</tr>
 				<tr>
 					<td>Sueldo:</td>					
 					<td  style="text-align:left;padding-left:15px">
-                        <input title="Sueldo" type="number" name="txtSueldo" id="txtSueldo" min="8000" step="500" required> <br> 
+                        <input title="Sueldo" type="number" name="txtSueldo" id="txtSueldo" min="8000" step="500" required>
+						<span style="display:none;color: orange;" name="spnSueldo" id="spnSueldo">*</span>			
 					</td>
 				</tr>
                 <tr>
@@ -93,7 +99,7 @@
 				</tr>
 				<tr>
 					<td colspan="2" align="right">
-						<input type="submit" onclick="AdministrarValidaciones()" id="btnEnviar" value="Enviar" />
+						<input type="submit" onclick="AdministrarValidaciones(event)" id="btnEnviar" value="Enviar" />
 					</td>
 				</tr>
 			</table>

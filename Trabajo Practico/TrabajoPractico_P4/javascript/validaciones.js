@@ -1,6 +1,14 @@
 "use strict";
 function ValidarCamposVacios(idValor) {
-    return (document.getElementById(idValor).value).length > 0;
+    var elemento = document.getElementById(idValor).value;
+    var flag = false;
+    for (var i = 0; i < elemento.length; i++) {
+        if (elemento[i] != " ") {
+            flag = true;
+            break;
+        }
+    }
+    return elemento.length > 0 && flag;
 }
 function ValidarRangoNumerico(valor, minimo, maximo) {
     return (valor >= minimo && valor <= maximo);
@@ -40,5 +48,17 @@ function AdministrarSpanError(id, retorno) {
     else {
         document.getElementById(id).style.display = "block";
     }
+}
+function VerificarValidacionesLogin() {
+    return (document.getElementById("spnApellido").style.display == "none") &&
+        (document.getElementById("spnDni").style.display == "none");
+}
+function VerificarValidacionesIndex() {
+    return (document.getElementById("spnApellido").style.display == "none") &&
+        (document.getElementById("spnDni").style.display == "none") &&
+        (document.getElementById("spnNombre").style.display == "none") &&
+        (document.getElementById("spnLegajo").style.display == "none") &&
+        (document.getElementById("spnSueldo").style.display == "none") &&
+        (document.getElementById("spnSexo").style.display == "none");
 }
 //# sourceMappingURL=validaciones.js.map

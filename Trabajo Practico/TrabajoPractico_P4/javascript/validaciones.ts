@@ -1,6 +1,16 @@
 function ValidarCamposVacios(idValor:string) : boolean
 {   
-    return ((<HTMLInputElement> document.getElementById(idValor)).value).length > 0;
+    var elemento :string = (<HTMLInputElement> document.getElementById(idValor)).value;
+    var flag : boolean = false;
+    for(let i =0; i<elemento.length; i++)
+    {
+        if(elemento[i]!= " ")
+        {
+            flag = true;
+            break;
+        }
+    }
+    return elemento.length > 0 && flag;
 }
 
 function ValidarRangoNumerico(valor:number, minimo:number, maximo:number): boolean
@@ -55,6 +65,21 @@ function AdministrarSpanError(id : string, retorno : boolean): void
     {
         ( <HTMLSpanElement> document.getElementById(id)).style.display = "block";
     }
+}
+function VerificarValidacionesLogin():boolean
+{
+    return  (( <HTMLSpanElement> document.getElementById("spnApellido")).style.display == "none") &&
+            (( <HTMLSpanElement> document.getElementById("spnDni")).style.display == "none");
+}
+function VerificarValidacionesIndex():boolean
+{
+    return  (( <HTMLSpanElement> document.getElementById("spnApellido")).style.display == "none") &&
+            (( <HTMLSpanElement> document.getElementById("spnDni")).style.display == "none")&&
+            (( <HTMLSpanElement> document.getElementById("spnNombre")).style.display == "none")&&
+            (( <HTMLSpanElement> document.getElementById("spnLegajo")).style.display == "none")&&
+            (( <HTMLSpanElement> document.getElementById("spnSueldo")).style.display == "none")&&
+            (( <HTMLSpanElement> document.getElementById("spnSexo")).style.display == "none")
+            ;
 }
 
 
