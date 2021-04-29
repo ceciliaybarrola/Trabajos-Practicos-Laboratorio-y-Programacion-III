@@ -96,13 +96,13 @@ class Fabrica implements IArchivos
             if($array[0] != null)
             {
                 $empleado= new Empleado($array[0],$array[1], $array[2], $array[3], $array[4], $array[5], $array[6]);
-                $nombre = "./backend/fotos/".$array[1]."-".$array[2];
+                $nombre = "./fotos/".$array[1]."-".$array[2];
                 
                 foreach($extensiones as $extension)
                 {
                     if(file_exists($nombre . $extension))
                     {
-                         $empleado->SetPathFoto("./fotos/" .$array[1]."-".$array[2]. $extension);
+                         $empleado->SetPathFoto("fotos/" .$array[1]."-".$array[2]. $extension);
                          break;
                     }
                 }

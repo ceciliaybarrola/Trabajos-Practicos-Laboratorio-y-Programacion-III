@@ -50,5 +50,5 @@ if($retorno)
 }
 
 echo '<a href="../index.php">Volver a la pagina principal...</a><br>';
-echo '<a href="../mostrar.php">Volver a la pagina mostrar...</a><br>';
+echo '<a href="mostrar.php">Volver a la pagina mostrar...</a><br>';
 ?>

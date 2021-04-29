@@ -7,18 +7,15 @@ $fabrica->TraerDeArchivo("./archivos/empleados.txt");
 
 if($_POST["hdnModificar"]=="Modificar")
 {
-    foreach($fabrica->GetEmpleados() as $item)
-    {
-        if($item->GetDni() == $_POST["txtDni"] && $item->GetLegajo() == $_POST["txtLegajo"])
-        {
+    foreach($fabrica->GetEmpleados() as $item){
+        if($item->GetDni() == $_POST["txtDni"] ){
             $path = $item->GetPathFoto();
             unlink($item->GetPathFoto());
             $fabrica->EliminarEmpleado($item); 
+            break;
         }
     }
 }
-    //-----------------------------------------------------------------
-
 
 $tipoArchivo = pathinfo($_FILES["fileFoto"]["name"], PATHINFO_EXTENSION);
 $nuevoNombreArchivo= "fotos/". $_POST["txtApellido"]. "-". $_POST["txtDni"].".". $tipoArchivo;
@@ -31,13 +28,13 @@ if(getimagesize($_FILES["fileFoto"]["tmp_name"]) !== FALSE && $_FILES["fileFoto"
 	}
 }
 
-if($uploadOk && move_uploaded_file($_FILES["fileFoto"]["tmp_name"], $nuevoNombreArchivo))
+if($uploadOk && move_uploaded_file($_FILES["fileFoto"]["tmp_name"], "./".$nuevoNombreArchivo))
 {
     $empleado->SetPathFoto($nuevoNombreArchivo);
     
     if($fabrica->AgregarEmpleado($empleado)) {
         $fabrica->GuardarEnArchivo("./archivos/empleados.txt");
-        echo '<a href="../mostrar.php">El Empleado se cargo correctamente al archivo. Mostrar Archivo</a>';
+        echo '<a href="mostrar.php">El Empleado se cargo correctamente al archivo. Mostrar Archivo</a>';
     } else {
         echo '<a href="../index.php">Error al cargar el empleado al archivo. Volver a la pagina principal</a>';
     }

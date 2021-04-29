@@ -9,13 +9,10 @@ if(isset($_POST["hdnMostrar"]))
 {
 	$fabrica = new Fabrica("fabrica de empanadas S.A", 7);
 	$fabrica->TraerDeArchivo("./backend/archivos/empleados.txt");
-	foreach($fabrica->GetEmpleados() as $item)
-	{
-		if($item->GetDni() == $_POST["hdnMostrar"])
-		{
+	foreach($fabrica->GetEmpleados() as $item){
+		if($item->GetDni() == $_POST["hdnMostrar"]){
 			$empleado = $item;
 			break;
-
 		}
 	}
 }
@@ -72,8 +69,8 @@ if(isset($_POST["hdnMostrar"]))
                     <td style="text-align:left;padding-left:15px">
 						<select id="cboSexo" name="cboSexo" >
                             <option value="---">Seleccione</option>
-							<option value="F">Femenino</option>
-							<option value="M" >Masculino</option>
+							<option value="F" <?php if(isset($_POST["hdnMostrar"]) && $empleado->GetSexo() == "F")echo ('selected="selected"');?>>Femenino</option>
+							<option value="M" <?php if(isset($_POST["hdnMostrar"]) && $empleado->GetSexo() == "M")echo ('selected="selected"');?>>Masculino</option>
 						</select>					
 						<span style="display:none;color: orange;" name="spnSexo" id="spnSexo">*</span><br> 
 					</td>
