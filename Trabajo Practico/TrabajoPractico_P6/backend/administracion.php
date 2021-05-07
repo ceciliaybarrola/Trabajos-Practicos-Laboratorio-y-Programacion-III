@@ -34,12 +34,13 @@ if($uploadOk && move_uploaded_file($_FILES["fileFoto"]["tmp_name"], "./".$nuevoN
     
     if($fabrica->AgregarEmpleado($empleado)) {
         $fabrica->GuardarEnArchivo("./archivos/empleados.txt");
-        echo '<a href="index.php">El Empleado se cargo correctamente al archivo. Mostrar Archivo</a>';
+        //echo '<a href="index.php">El Empleado se cargo correctamente al archivo. Mostrar Archivo</a>';
+        include "mostrar.php";
     } else {
-        echo '<a href="index.php">Error al cargar el empleado al archivo. Volver a la pagina principal</a>';
+       // echo '<a href="index.php">Error al cargar el empleado al archivo. Volver a la pagina principal</a>';
     }
 } else {
-    echo '<a href="index.php">Error al cargar validar la foto. Volver a la pagina principal</a>';
+   // echo '<a href="index.php">Error al cargar validar la foto. Volver a la pagina principal</a>';
 }
 
 

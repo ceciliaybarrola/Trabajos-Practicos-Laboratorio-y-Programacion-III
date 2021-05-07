@@ -82,11 +82,6 @@ function VerificarValidacionesIndex():boolean
             (( <HTMLSpanElement> document.getElementById("spnFoto")).style.display == "none")
             ;
 }
-function AdministrarModificar(dni : number) : void
-{
-    (<HTMLInputElement> document.getElementById("hdnMostrar")).value= dni.toString();
-    (<HTMLFormElement> document.getElementById("formMostrar")).submit();
-    
-}
+
 
 

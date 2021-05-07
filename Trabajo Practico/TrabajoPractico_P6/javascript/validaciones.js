@@ -62,8 +62,4 @@ function VerificarValidacionesIndex() {
         (document.getElementById("spnSexo").style.display == "none") &&
         (document.getElementById("spnFoto").style.display == "none");
 }
-function AdministrarModificar(dni) {
-    document.getElementById("hdnMostrar").value = dni.toString();
-    document.getElementById("formMostrar").submit();
-}
 //# sourceMappingURL=validaciones.js.map

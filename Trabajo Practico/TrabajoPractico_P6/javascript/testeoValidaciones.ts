@@ -1,4 +1,5 @@
-function AdministrarValidaciones(evento : Event)
+/// <reference path="../AJAX/administracionAjax.ts"/>
+function AdministrarValidaciones()
 {
     AdministrarSpanError("spnDni",ValidarCamposVacios("txtDni"));
     AdministrarSpanError("spnApellido",ValidarCamposVacios("txtApellido"));
@@ -10,11 +11,10 @@ function AdministrarValidaciones(evento : Event)
     AdministrarSpanError("spnSexo", ValidarCombo("cboSexo", "---"));
     AdministrarSpanError("spnSueldo", (ObtenerSueldoMaximo(ObtenerTurnoSeleccionado()) >= (<HTMLInputElement> document.getElementById("txtSueldo")).valueAsNumber));
     AdministrarSpanError("spnFoto", ValidarCamposVacios("fileFoto"));
-    var form= <HTMLFormElement> document.getElementById("formLogin");
 
-    if(! VerificarValidacionesIndex())
+    if(VerificarValidacionesIndex())
     {   
-        evento.preventDefault();
+        Ajax_AdministrarAlta();
     }
 
 }
@@ -30,4 +30,11 @@ function AdministrarValidacionesLogin(evento : Event)
     {   
         evento.preventDefault();
     }
+}
+function AdministrarModificar(dni : number) : void
+{
+    (<HTMLInputElement> document.getElementById("hdnMostrar")).value= dni.toString();
+    
+    Ajax_AdministrarModificar();
+    
 }

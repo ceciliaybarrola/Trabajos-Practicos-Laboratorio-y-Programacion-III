@@ -25,6 +25,7 @@ if(isset($_POST["hdnMostrar"]))
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="../javascript/funciones.js" ></script>
+	<script src="../AJAX/administracionAjax.js" ></script>
     <title>Document</title>
 </head>
 <body>
@@ -33,7 +34,6 @@ if(isset($_POST["hdnMostrar"]))
 	<hr>
 </div>
 <div align="left" class="container " id="divAlta" style="float: left;width: 40%; height:600px; overflow:auto;">		
-	<form action="administracion.php" method="POST" enctype="multipart/form-data">
 		<?php echo (isset($_POST["hdnMostrar"]) ? "<h2>Modificacion Empleados</h2>" : "<h2>Alta Empleados</h2>");?> 
 			<table align="left">
 				<tr>
@@ -143,7 +143,7 @@ if(isset($_POST["hdnMostrar"]))
 					<td colspan="2" align="right">
 						<input 
 							<?php echo (isset($_POST["hdnMostrar"]) ? 'value="Modificar"' : ' value="Enviar" ');?>
-							type="submit" onclick="AdministrarValidaciones(event)" id="btnEnviar"/>
+							type="button" onclick="AdministrarValidaciones()" id="btnEnviar"/>
 					</td>
 				</tr>
 				<tr>												
@@ -152,52 +152,16 @@ if(isset($_POST["hdnMostrar"]))
 							type="hidden" name="hdnModificar" id="hdnModificar" value="" /> 
 					</td>
                 </tr>
-			</table>
-		</form>  
+			</table> 
     </div>
-    <div align="left" class="container " id="divMostrar" style="float: right;height:600px; width: 60%; overflow:auto;">
-		<h2>Listado de empleados</h2>
-			<form id="formMostrar" method="POST" action="index.php">
-                <table align="right">
-                    <tr>												
-                        <td> <input type="hidden" name="hdnMostrar" id="hdnMostrar" value="" /> </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><h4>Info</h4></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><hr/></td>
-                    </tr>
-                    
-                    <?php
-                    $fabrica = new Fabrica("Fabrica de empanadas S.A.", 7);
-                    $fabrica->TraerDeArchivo("./archivos/empleados.txt");
-                    $array = $fabrica->GetEmpleados();
-                    foreach($array as $empleado)
-                    {    ///poner el eliminar como un boton       
-						echo'<tr>                  
-						<td>' .$empleado->ToString().':</td>	
-						<td><img src="./'.$empleado->GetPathFoto().'" width="90px" height="90px"/></td>				
-						<td  style="text-align:left;padding-left:15px">      
-						<a href="./eliminar.php?legajo='.$empleado->GetLegajo().'">Eliminar Empleado.</a><br>                       
-						</td>
-						<td colspan="2" align="right">
-						<input type="button" onclick="AdministrarModificar('.$empleado->GetDni().')" id="btnModificar" value="Modificar" />
-						</td>
-						</tr>';    
-						
-                    }
-                    ?>
-                    <tr>
-                        <td colspan="2"><hr/></td>
-                    </tr>
-            </table>
-            </form>
-
+    <div align="left" class="container " id="divMostrar" style="float: right;height:600px; width: 60%; overflow:auto;">  
+		<?php
+			include "mostrar.php";
+		?>
     </div>
 	<div style=" width: 100%;text-align:left;padding-right: 50px;">
-		<a href="./backend/cerrarSesion.php">Cerrar sesion.</a><br>
-		<a href="../index.php">Alta Empleados</a>
+		<a href="cerrarSesion.php">Cerrar sesion.</a><br>
+		<a href="index.php">Alta Empleados</a>
 	</div>
 </body>
 </html>

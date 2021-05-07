@@ -1,6 +1,5 @@
 <?php
 require "./fabrica.php";
-echo "<h2>ELIMINAR EMPLEADOS</h2><br>";
 
 $retorno= false;
 
@@ -43,11 +42,11 @@ if($retorno)
     $fabrica->TraerDeArchivo("./archivos/empleados.txt");
     if($fabrica->EliminarEmpleado($empleado))
     {
-        echo "Empleado eliminado correctamente, se precederá a actualizar el archivo...<br>";
+        //echo "Empleado eliminado correctamente, se precederá a actualizar el archivo...<br>";
         $fabrica->GuardarEnArchivo("./archivos/empleados.txt");
+        include "mostrar.php";
     }
 
 }
 
-echo '<a href="index.php">Volver a la pagina principal...</a><br>';
 ?>

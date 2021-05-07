@@ -1,5 +1,6 @@
 "use strict";
-function AdministrarValidaciones(evento) {
+/// <reference path="../AJAX/administracionAjax.ts"/>
+function AdministrarValidaciones() {
     AdministrarSpanError("spnDni", ValidarCamposVacios("txtDni"));
     AdministrarSpanError("spnApellido", ValidarCamposVacios("txtApellido"));
     AdministrarSpanError("spnNombre", ValidarCamposVacios("txtNombre"));
@@ -10,9 +11,8 @@ function AdministrarValidaciones(evento) {
     AdministrarSpanError("spnSexo", ValidarCombo("cboSexo", "---"));
     AdministrarSpanError("spnSueldo", (ObtenerSueldoMaximo(ObtenerTurnoSeleccionado()) >= document.getElementById("txtSueldo").valueAsNumber));
     AdministrarSpanError("spnFoto", ValidarCamposVacios("fileFoto"));
-    var form = document.getElementById("formLogin");
-    if (!VerificarValidacionesIndex()) {
-        evento.preventDefault();
+    if (VerificarValidacionesIndex()) {
+        Ajax_AdministrarAlta();
     }
 }
 function AdministrarValidacionesLogin(evento) {
@@ -23,5 +23,9 @@ function AdministrarValidacionesLogin(evento) {
     if (!VerificarValidacionesLogin()) {
         evento.preventDefault();
     }
+}
+function AdministrarModificar(dni) {
+    document.getElementById("hdnMostrar").value = dni.toString();
+    document.getElementById("formMostrar").submit();
 }
 //# sourceMappingURL=testeoValidaciones.js.map
