@@ -1,5 +1,4 @@
 "use strict";
-/// <reference path="../AJAX/administracionAjax.ts"/>
 function AdministrarValidaciones() {
     AdministrarSpanError("spnDni", ValidarCamposVacios("txtDni"));
     AdministrarSpanError("spnApellido", ValidarCamposVacios("txtApellido"));
@@ -26,6 +25,6 @@ function AdministrarValidacionesLogin(evento) {
 }
 function AdministrarModificar(dni) {
     document.getElementById("hdnMostrar").value = dni.toString();
-    document.getElementById("formMostrar").submit();
+    Ajax_AdministrarModificar();
 }
 //# sourceMappingURL=testeoValidaciones.js.map

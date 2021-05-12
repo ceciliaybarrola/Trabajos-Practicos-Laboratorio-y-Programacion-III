@@ -1,4 +1,3 @@
-/// <reference path="../AJAX/administracionAjax.ts"/>
 function AdministrarValidaciones()
 {
     AdministrarSpanError("spnDni",ValidarCamposVacios("txtDni"));
@@ -33,8 +32,7 @@ function AdministrarValidacionesLogin(evento : Event)
 }
 function AdministrarModificar(dni : number) : void
 {
-    (<HTMLInputElement> document.getElementById("hdnMostrar")).value= dni.toString();
-    
-    Ajax_AdministrarModificar();
+    (<HTMLInputElement> document.getElementById("hdnModificar")).value= dni.toString();
+    Ajax_AdministrarModificar(dni);
     
 }
