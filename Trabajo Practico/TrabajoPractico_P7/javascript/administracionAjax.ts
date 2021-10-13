@@ -99,15 +99,36 @@ function Ajax_AdministrarModificar(dni : number)
     var parametros : string = "hdnModificar="+dni;
     ajax.Post("../backend/alta.php",SuccessModificar,parametros,Fail);
 }
+function Ajax_AdministrarModificar_DB(dni : number)
+{
+    let ajax : Ajax = new Ajax();
+    
+    var parametros : string = "hdnModificar="+dni;
+    ajax.Post("../backend/alta_DB.php",SuccessModificar,parametros,Fail);
+}
  function Ajax_AdministrarEliminar(parametroLegajo : string)
 {
     let ajax : Ajax = new Ajax();
     ajax.Get("../backend/eliminar.php", Success, "legajo="+parametroLegajo.toString(), Fail);
 
 }
+function Ajax_AdministrarEliminar_DB(parametroLegajo : string)
+{
+    let ajax : Ajax = new Ajax();
+    ajax.Get("../backend/eliminar_DB.php", Success, "legajo="+parametroLegajo.toString(), Fail);
+
+}
 function Ajax_AdministrarAlta()
 {
     let ajax : Ajax = new Ajax();
+    var turnoSeleccionado;
+    (document.getElementsByName("rdoTurno")).forEach(element => {
+        if((<HTMLInputElement> element).checked)
+        {
+           turnoSeleccionado = (<HTMLInputElement> element).value;
+        }
+    });
+
     var arrayKey : Array <string> = new Array("txtDni", "txtApellido", "txtNombre", "txtLegajo", "txtSueldo", "cboSexo", "rdoTurno", "hdnModificar");
     var arrayValue : Array<any> = new Array((<HTMLInputElement> document.getElementById("txtDni")).value,
                                             (<HTMLInputElement> document.getElementById("txtApellido")).value,
@@ -115,10 +136,33 @@ function Ajax_AdministrarAlta()
                                             (<HTMLInputElement> document.getElementById("txtLegajo")).value,
                                             (<HTMLInputElement> document.getElementById("txtSueldo")).value,
                                             (<HTMLInputElement> document.getElementById("cboSexo")).value,
-                                            ObtenerTurnoSeleccionado(),
+                                            turnoSeleccionado,
                                             (<HTMLInputElement> document.getElementById("hdnModificar")).value);
 
     ajax.Post_File("../backend/administracion.php",Success,arrayKey, arrayValue, "fileFoto");
+}
+function Ajax_AdministrarAlta_DB()
+{
+    let ajax : Ajax = new Ajax();
+    var turnoSeleccionado;
+    (document.getElementsByName("rdoTurno")).forEach(element => {
+        if((<HTMLInputElement> element).checked)
+        {
+           turnoSeleccionado = (<HTMLInputElement> element).value;
+        }
+    });
+
+    var arrayKey : Array <string> = new Array("txtDni", "txtApellido", "txtNombre", "txtLegajo", "txtSueldo", "cboSexo", "rdoTurno", "hdnModificar");
+    var arrayValue : Array<any> = new Array((<HTMLInputElement> document.getElementById("txtDni")).value,
+                                            (<HTMLInputElement> document.getElementById("txtApellido")).value,
+                                            (<HTMLInputElement> document.getElementById("txtNombre")).value,
+                                            (<HTMLInputElement> document.getElementById("txtLegajo")).value,
+                                            (<HTMLInputElement> document.getElementById("txtSueldo")).value,
+                                            (<HTMLInputElement> document.getElementById("cboSexo")).value,
+                                            turnoSeleccionado,
+                                            (<HTMLInputElement> document.getElementById("hdnModificar")).value);
+
+    ajax.Post_File("../backend/administracion_DB.php",Success,arrayKey, arrayValue, "fileFoto");
 }
 
 function SuccessModificar(retorno:string):void {

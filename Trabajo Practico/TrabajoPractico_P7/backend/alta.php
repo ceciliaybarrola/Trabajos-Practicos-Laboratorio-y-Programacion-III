@@ -121,17 +121,14 @@ if(isset($_POST["hdnModificar"]))
     </tr>				
     <tr>
         <td colspan="2" align="right">
-            <input type="button" value="Limpiar" onclick="Limpiar()" />
+            <input type="reset" value="Limpiar" />
         </td>
     </tr>
     <tr>
         <td colspan="2" align="right">
-            <form>
-
             <input 
                 <?php echo (isset($_POST["hdnModificar"]) ? 'value="Modificar"' : ' value="Enviar" ');?>
                 type="button" onclick="AdministrarValidaciones(event)" id="btnEnviar"/>
-            </form>
         </td>
     </tr>
     <tr>												

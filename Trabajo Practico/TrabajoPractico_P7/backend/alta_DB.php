@@ -5,18 +5,26 @@ if (session_status() !== PHP_SESSION_ACTIVE){
 if(!isset($_SESSION["DNIEmpleado"]))
 	header("Location: ../login.html");
 
-require "fabrica.php";
+require_once "empleado.php";
 
 if(isset($_POST["hdnModificar"]))
 {
-	$fabrica = new Fabrica("Fabrica de empanadas S.A", 7);
-	$fabrica->TraerDeArchivo("./archivos/empleados.txt");
-	foreach($fabrica->GetEmpleados() as $item){
-		if($item->GetDni() == $_POST["hdnModificar"]){
-			$empleado = $item;
-			break;
-		}
-	}
+    try{
+        $user = 'root';
+        $pass = '';
+        $conectionString='mysql:host=localhost;dbname=fabrica';
+        $pdo = new PDO($conectionString, $user, $pass);
+        $sentencia = $pdo->prepare('SELECT * FROM empleados WHERE DNI = :dni');
+        $sentencia->execute(array("dni" => $_POST["hdnModificar"]));
+        while($fila = $sentencia->fetch()){
+            $empleado = new Empleado($fila['nombre'],$fila['apellido'],$fila['DNI'],$fila['sexo'],$fila['legajo'],$fila['sueldo'],$fila['turno']);
+            $empleado->SetPathFoto($fila['ruta_foto']);
+        }
+
+
+    }catch(PDOException $exception){
+        echo "Error: ". $exception->getMessage();
+    }
 }
 ?>
 <?php echo (isset($_POST["hdnModificar"]) ? "<h2>Modificacion Empleados</h2>" : "<h2>Alta Empleados</h2>"); ?>
@@ -108,30 +116,57 @@ if(isset($_POST["hdnModificar"]))
         </td>
         <td>Noche</td>					
     </tr>
-
     <tr>
         <td>Foto:</td>					
         <td  style="text-align:left;padding-left:15px">
-            <input title="Foto" type="file" name="fileFoto" id="fileFoto" required>
+            <input title="Foto" type="file" name="fileFoto" id="fileFoto" accept="image/*" required>
             <span style="display:none;color: orange;" name="spnFoto" id="spnFoto">*</span>
         </td>
-    </tr>			
+    </tr>	
+    <tr>
+        <td colspan="2" style="text-align:center;">               
+           <img id="default" <?php echo (isset($_POST["hdnModificar"]))?('src="'. $empleado->GetPathFoto().'"'): ' src="./fotos/default.png"';?> style="width:145px;height:126px;">                
+           <input <?php echo isset($_POST["hdnModificar"])?('value="'. $empleado->GetPathFoto().'"'):'value="./fotos/default.png"';?>
+                type="hidden" id="hdnDefault"  /> 
+        </td>
+    </tr>
+         <script>
+             // Obtener referencia al input y a la imagen
+            const $seleccionArchivos = document.querySelector("#fileFoto"),
+            $imagenPrevisualizacion = document.querySelector("#default");
+
+            // Escuchar cuando cambie
+            $seleccionArchivos.addEventListener("change", () => {
+            // Los archivos seleccionados, pueden ser muchos o uno
+            const archivos = $seleccionArchivos.files;
+            // Si no hay archivos salimos de la función y quitamos la imagen
+            if (!archivos || !archivos.length) {
+                $imagenPrevisualizacion.src = $("#hdnDefault").val();                   
+                return;
+            }
+            // Ahora tomamos el primer archivo, el cual vamos a previsualizar
+            const primerArchivo = archivos[0];
+            // Lo convertimos a un objeto de tipo objectURL
+            const objectURL = URL.createObjectURL(primerArchivo);
+            // Y a la fuente de la imagen le ponemos el objectURL
+            $imagenPrevisualizacion.src = objectURL;
+            })
+
+        </script>   
+
     <tr>
         <td colspan="2"><hr /></td>
     </tr>				
     <tr>
         <td colspan="2" align="right">
-            <input type="button" value="Limpiar" onclick="Limpiar()" />
+            <input type="button" onclick="AdmimistrarLimpiar()" id="reset" value="Limpiar" />
         </td>
     </tr>
     <tr>
         <td colspan="2" align="right">
-            <form>
-
             <input 
                 <?php echo (isset($_POST["hdnModificar"]) ? 'value="Modificar"' : ' value="Enviar" ');?>
-                type="button" onclick="AdministrarValidaciones(event)" id="btnEnviar"/>
-            </form>
+                type="button" onclick="AdministrarValidaciones_DB()" id="btnEnviar"/>
         </td>
     </tr>
     <tr>												

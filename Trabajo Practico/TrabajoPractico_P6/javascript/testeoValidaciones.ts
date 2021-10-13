@@ -33,6 +33,15 @@ function AdministrarValidacionesLogin(evento : Event)
 function AdministrarModificar(dni : number) : void
 {
     (<HTMLInputElement> document.getElementById("hdnModificar")).value= dni.toString();
-    Ajax_AdministrarModificar(dni);
-    
+    Ajax_AdministrarModificar(dni); 
+}
+function Limpiar()
+{
+    (<HTMLInputElement> document.getElementById("txtDni")).value = "";
+    (<HTMLInputElement> document.getElementById("txtApellido")).value= "";
+    (<HTMLInputElement> document.getElementById("txtNombre")).value= "";
+    (<HTMLInputElement> document.getElementById("txtLegajo")).value= "";
+    (<HTMLInputElement> document.getElementById("txtSueldo")).value= "";
+    (<HTMLInputElement> document.getElementById("cboSexo")).value= "---";
+    (<HTMLInputElement> document.getElementById("fileFoto")).defaultValue="";
 }

@@ -20,7 +20,7 @@ if($_POST["hdnModificar"]=="Modificar")
 $tipoArchivo = pathinfo($_FILES["fileFoto"]["name"], PATHINFO_EXTENSION);
 $nuevoNombreArchivo= "fotos/". $_POST["txtApellido"]. "-". $_POST["txtDni"].".". $tipoArchivo;
 
-if(getimagesize($_FILES["fileFoto"]["tmp_name"]) !== FALSE && $_FILES["fileFoto"]["size"]<=1000000 && !file_exists($nuevoNombreArchivo))
+if(getimagesize($_FILES["fileFoto"]["tmp_name"]) !== FALSE && $_FILES["fileFoto"]["size"]<=1048576 && !file_exists($nuevoNombreArchivo))
 {
 	if($tipoArchivo == "jpg" || $tipoArchivo == "jpeg" || $tipoArchivo == "gif" || $tipoArchivo == "png" || $tipoArchivo == "bmp") {
 

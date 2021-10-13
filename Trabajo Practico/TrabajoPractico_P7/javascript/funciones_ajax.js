@@ -13,27 +13,52 @@ function AdministrarValidaciones() {
         Ajax_AdministrarAlta();
     }
 }
-function AdministrarValidacionesLogin(evento) {
+function AdministrarValidaciones_DB() {
+    AdministrarSpanError("spnDni", ValidarCamposVacios("txtDni"));
+    AdministrarSpanError("spnApellido", ValidarCamposVacios("txtApellido"));
+    AdministrarSpanError("spnNombre", ValidarCamposVacios("txtNombre"));
+    AdministrarSpanError("spnLegajo", ValidarCamposVacios("txtLegajo"));
+    AdministrarSpanError("spnSueldo", ValidarCamposVacios("txtSueldo"));
+    AdministrarSpanError("spnDni", ValidarRangoNumerico(document.getElementById("txtDni").valueAsNumber, 1000000, 55000000));
+    AdministrarSpanError("spnLegajo", ValidarRangoNumerico(document.getElementById("txtLegajo").valueAsNumber, 100, 550));
+    AdministrarSpanError("spnSexo", ValidarCombo("cboSexo", "---"));
+    AdministrarSpanError("spnSueldo", (ObtenerSueldoMaximo(ObtenerTurnoSeleccionado()) >= document.getElementById("txtSueldo").valueAsNumber));
+    AdministrarSpanError("spnFoto", ValidarCamposVacios("fileFoto"));
+    if (VerificarValidacionesIndex()) {
+        Ajax_AdministrarAlta_DB();
+    }
+}
+function AdministrarValidacionesLogin(evento, boton) {
     AdministrarSpanError("spnDni", ValidarCamposVacios("txtDni"));
     AdministrarSpanError("spnDni", ValidarRangoNumerico(document.getElementById("txtDni").valueAsNumber, 1000000, 55000000));
     AdministrarSpanError("spnApellido", ValidarCamposVacios("txtApellido"));
-    var form = document.getElementById("formLogin");
     if (!VerificarValidacionesLogin()) {
         evento.preventDefault();
+    }
+    else if (boton == 'BD') {
+        document.getElementById("formLogin").action = "./backend/verificarUsuario_BD.php";
+    }
+    else {
+        document.getElementById("formLogin").action = "./backend/verificarUsuario.php";
     }
 }
 function AdministrarModificar(dni) {
     document.getElementById("hdnModificar").value = dni.toString();
     Ajax_AdministrarModificar(dni);
 }
-function Limpiar() {
-    document.getElementById("txtDni").value = "";
-    document.getElementById("txtApellido").value = "";
-    document.getElementById("txtNombre").value = "";
-    document.getElementById("txtLegajo").value = "";
-    document.getElementById("txtSueldo").value = "";
-    document.getElementById("cboSexo").value = "---";
-    document.getElementById("fileFoto").defaultValue = "";
+function AdministrarModificar_DB(dni) {
+    document.getElementById("hdnModificar").value = dni.toString();
+    Ajax_AdministrarModificar_DB(dni);
+}
+function AdministrarLimpiar() {
+    if (document.getElementById('hdnModificar').value != 'Modificar') {
+        document.getElementById('txtDni').value = '';
+        document.getElementById('txtLegajo').value = '';
+    }
+    document.getElementById('txtApellido').value = '';
+    document.getElementById('txtNombre').value = '';
+    document.getElementById('txtSueldo').value = '';
+    document.getElementById('cboSexo').value = '---';
 }
 function ValidarCamposVacios(idValor) {
     var elemento = document.getElementById(idValor).value;
@@ -180,15 +205,42 @@ function Ajax_AdministrarModificar(dni) {
     var parametros = "hdnModificar=" + dni;
     ajax.Post("../backend/alta.php", SuccessModificar, parametros, Fail);
 }
+function Ajax_AdministrarModificar_DB(dni) {
+    var ajax = new Ajax();
+    var parametros = "hdnModificar=" + dni;
+    ajax.Post("../backend/alta_DB.php", SuccessModificar, parametros, Fail);
+}
 function Ajax_AdministrarEliminar(parametroLegajo) {
     var ajax = new Ajax();
     ajax.Get("../backend/eliminar.php", Success, "legajo=" + parametroLegajo.toString(), Fail);
 }
+function Ajax_AdministrarEliminar_DB(parametroLegajo) {
+    var ajax = new Ajax();
+    ajax.Get("../backend/eliminar_DB.php", Success, "legajo=" + parametroLegajo.toString(), Fail);
+}
 function Ajax_AdministrarAlta() {
     var ajax = new Ajax();
+    var turnoSeleccionado;
+    (document.getElementsByName("rdoTurno")).forEach(function (element) {
+        if (element.checked) {
+            turnoSeleccionado = element.value;
+        }
+    });
     var arrayKey = new Array("txtDni", "txtApellido", "txtNombre", "txtLegajo", "txtSueldo", "cboSexo", "rdoTurno", "hdnModificar");
-    var arrayValue = new Array(document.getElementById("txtDni").value, document.getElementById("txtApellido").value, document.getElementById("txtNombre").value, document.getElementById("txtLegajo").value, document.getElementById("txtSueldo").value, document.getElementById("cboSexo").value, ObtenerTurnoSeleccionado(), document.getElementById("hdnModificar").value);
+    var arrayValue = new Array(document.getElementById("txtDni").value, document.getElementById("txtApellido").value, document.getElementById("txtNombre").value, document.getElementById("txtLegajo").value, document.getElementById("txtSueldo").value, document.getElementById("cboSexo").value, turnoSeleccionado, document.getElementById("hdnModificar").value);
     ajax.Post_File("../backend/administracion.php", Success, arrayKey, arrayValue, "fileFoto");
+}
+function Ajax_AdministrarAlta_DB() {
+    var ajax = new Ajax();
+    var turnoSeleccionado;
+    (document.getElementsByName("rdoTurno")).forEach(function (element) {
+        if (element.checked) {
+            turnoSeleccionado = element.value;
+        }
+    });
+    var arrayKey = new Array("txtDni", "txtApellido", "txtNombre", "txtLegajo", "txtSueldo", "cboSexo", "rdoTurno", "hdnModificar");
+    var arrayValue = new Array(document.getElementById("txtDni").value, document.getElementById("txtApellido").value, document.getElementById("txtNombre").value, document.getElementById("txtLegajo").value, document.getElementById("txtSueldo").value, document.getElementById("cboSexo").value, turnoSeleccionado, document.getElementById("hdnModificar").value);
+    ajax.Post_File("../backend/administracion_DB.php", Success, arrayKey, arrayValue, "fileFoto");
 }
 function SuccessModificar(retorno) {
     document.getElementById("divAlta").innerHTML = retorno;
