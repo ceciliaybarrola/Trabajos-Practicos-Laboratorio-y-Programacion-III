@@ -121,7 +121,7 @@ if(isset($_POST["hdnModificar"]))
     </tr>				
     <tr>
         <td colspan="2" align="right">
-            <input type="reset" value="Limpiar" />
+            <input type="button" value="Limpiar" onclick="Limpiar()" />
         </td>
     </tr>
     <tr>

@@ -64,17 +64,18 @@ function AdministrarModificar_DB(dni : number) : void
     Ajax_AdministrarModificar_DB(dni);
     
 }
-function AdministrarLimpiar()
+function Limpiar()
 {
-    if((<HTMLInputElement>document.getElementById('hdnModificar')).value != 'Modificar')
+    if((<HTMLInputElement> document.getElementById("hdnModificar")).value != "Modificar")
     {
-        (<HTMLInputElement>document.getElementById('txtDni')).value = '';
-        (<HTMLInputElement>document.getElementById('txtLegajo')).value = '';        
+        (<HTMLInputElement> document.getElementById("txtDni")).value = "";
+        (<HTMLInputElement> document.getElementById("txtLegajo")).value= "";    
     }
-    (<HTMLInputElement>document.getElementById('txtApellido')).value = '';
-    (<HTMLInputElement>document.getElementById('txtNombre')).value = '';
-    (<HTMLInputElement>document.getElementById('txtSueldo')).value = '';
-    (<HTMLInputElement>document.getElementById('cboSexo')).value = '---';
 
+    (<HTMLInputElement> document.getElementById("txtApellido")).value= "";
+    (<HTMLInputElement> document.getElementById("txtNombre")).value= "";
 
+    (<HTMLInputElement> document.getElementById("txtSueldo")).value= "";
+    (<HTMLInputElement> document.getElementById("cboSexo")).value= "---";
+    (<HTMLInputElement> document.getElementById("fileFoto")).defaultValue="";
 }

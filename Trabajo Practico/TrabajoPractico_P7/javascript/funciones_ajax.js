@@ -50,15 +50,16 @@ function AdministrarModificar_DB(dni) {
     document.getElementById("hdnModificar").value = dni.toString();
     Ajax_AdministrarModificar_DB(dni);
 }
-function AdministrarLimpiar() {
-    if (document.getElementById('hdnModificar').value != 'Modificar') {
-        document.getElementById('txtDni').value = '';
-        document.getElementById('txtLegajo').value = '';
+function Limpiar() {
+    if (document.getElementById("hdnModificar").value != "Modificar") {
+        document.getElementById("txtDni").value = "";
+        document.getElementById("txtLegajo").value = "";
     }
-    document.getElementById('txtApellido').value = '';
-    document.getElementById('txtNombre').value = '';
-    document.getElementById('txtSueldo').value = '';
-    document.getElementById('cboSexo').value = '---';
+    document.getElementById("txtApellido").value = "";
+    document.getElementById("txtNombre").value = "";
+    document.getElementById("txtSueldo").value = "";
+    document.getElementById("cboSexo").value = "---";
+    document.getElementById("fileFoto").defaultValue = "";
 }
 function ValidarCamposVacios(idValor) {
     var elemento = document.getElementById(idValor).value;
